@@ -1,0 +1,32 @@
+
+import io.restassured.http.ContentType;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static io.restassured.RestAssured.given;
+
+public class Crypto {
+    @Test
+public void listUSACurrencies(){
+    List <CryptoPojo> Cr = given().contentType(ContentType.JSON).when()
+            .get("https://api.coingecko.com/api/v3/exchanges").then().extract()
+            .jsonPath().getList("",CryptoPojo.class).stream().filter(x->x.getCountry()!=null)
+            .filter(y->y.getCountry().contains("United States")).sorted(new Comparator<CryptoPojo>() {
+                @Override
+                public int compare(CryptoPojo o1, CryptoPojo o2) {
+                    return o2.getTrade_volume_24h_btc_normalized().compareTo(o1.getTrade_volume_24h_btc_normalized());
+                }
+            })
+
+            .collect(Collectors.toList());
+        Assert.assertTrue(Cr.stream().allMatch(g->g.getCountry().contains("United States")));
+
+        System.out.println(Cr);
+
+}
+
+}

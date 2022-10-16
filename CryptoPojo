@@ -1,0 +1,55 @@
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class CryptoPojo {
+    public String id;
+    public String name;
+    public String year_established;
+    public String country;
+    public String trust_score;
+    public String trust_score_rank;
+    public String trade_volume_24h_btc_normalized;
+
+
+    public CryptoPojo(String name,String year_established,String id,String trust_score,String country,String trust_score_rank,String trade_volume_24h_btc_normalized){
+        this.id=id;
+        this.name = name;
+        this.year_established = year_established;
+        this.country=country;
+        this.trust_score=trust_score;
+        this.trade_volume_24h_btc_normalized=trade_volume_24h_btc_normalized;
+        this.trust_score_rank=trust_score_rank;
+
+
+    }
+    public String getName() {
+        return name;
+    }
+
+    public String getYear_established() {
+        return year_established;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTrust_score() {
+
+        return trust_score;
+    }
+
+    public String getCountry()
+    {
+        return country;
+    }
+
+    public String getTrust_score_rank() {
+        return trust_score_rank;
+    }
+
+    public String getTrade_volume_24h_btc_normalized() {
+        return trade_volume_24h_btc_normalized;
+    }
+}
